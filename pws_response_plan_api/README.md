@@ -1,6 +1,6 @@
 ## API Response Plan
 
-See the [Swagger - OpenAPI 3.0 Documentation](https://bitbucket.org/worldsensing_traffic/pws_api/raw/develop/api_devices/swagger.yaml).
+See the [Swagger - OpenAPI 3.0 Documentation](https://stopit-pws.worldsensing.com/mb/swagger/).
 
 ### Usage
 There is a Makefile explaining the main actions of the Docker.
