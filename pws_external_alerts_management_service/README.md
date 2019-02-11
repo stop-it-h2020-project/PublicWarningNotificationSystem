@@ -1,0 +1,1 @@
+This component is a simple simulator which is a listening API for the Incident Reporting message that is being sent from the PWNS. It only logs what is received, so we can test if the PWNS is working end-to-end.
