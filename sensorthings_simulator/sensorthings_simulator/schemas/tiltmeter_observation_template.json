@@ -1,0 +1,6 @@
+{
+  "phenomenonTime": "{datetime}",
+  "resultTime": "{datetime}",
+  "result": [{axis_one}, {axis_two}],
+  "Datastream": {"@iot.id": {datastream_id}}
+}

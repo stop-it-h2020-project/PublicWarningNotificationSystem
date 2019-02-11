@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+
+cd $PROJECT_DIR
+gunicorn alerts_api.main:app --worker-class gevent --bind 0.0.0.0:5000

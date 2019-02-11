@@ -1,0 +1,265 @@
+swagger: '2.0'
+info:
+  title: OneMind Alerts Service
+  description: Alerts Service API
+  version: 1.0.1
+host: localhost:5000
+schemes:
+  - http
+consumes:
+  - application/json
+produces:
+  - application/xml
+  - application/json
+paths:
+  "/alerts":
+    get:
+      summary: Retrieves one or more alerts
+      responses:
+        '200':
+          description: An array of alerts
+          schema:
+            type: array
+            items:
+              "$ref": "#/definitions/Alert"
+      tags:
+        - Alert
+    post:
+      summary: Stores one or more alerts
+      parameters:
+        - in: body
+          name: Alert
+          required: true
+          schema:
+            "$ref": "#/definitions/Alert"
+      responses:
+        '201':
+          description: operation has been successful
+      tags:
+        - Alert
+  "/alerts/{alertId}":
+    get:
+      summary: Retrieves a Alert document
+      responses:
+        '200':
+          description: Alert document fetched successfully
+          schema:
+            "$ref": "#/definitions/Alert"
+      parameters:
+        - "$ref": "#/parameters/Alert_id"
+      tags:
+        - Alert
+    put:
+      summary: Replaces a Alert document
+      responses:
+        '200':
+          description: Alert document replaced successfully
+      parameters:
+        - "$ref": "#/parameters/Alert_id"
+        - in: body
+          name: Alert
+          required: true
+          schema:
+            "$ref": "#/definitions/Alert"
+        - in: header
+          name: If-Match
+          description: Current value of the _etag field
+          required: true
+          type: string
+      tags:
+        - Alert
+  "/rules":
+    get:
+      summary: Retrieves one or more rules
+      responses:
+        '200':
+          description: An array of rules
+          schema:
+            type: array
+            items:
+              "$ref": "#/definitions/Rule"
+      tags:
+        - Rule
+    post:
+      summary: Stores one or more rules
+      parameters:
+        - in: body
+          name: Rule
+          required: true
+          schema:
+            "$ref": "#/definitions/Rule"
+      responses:
+        '201':
+          description: operation has been successful
+      tags:
+        - Rule
+  "/rules/{ruleId}":
+    get:
+      summary: Retrieves a Rule document
+      responses:
+        '200':
+          description: Rule document fetched successfully
+          schema:
+            "$ref": "#/definitions/Rule"
+      parameters:
+        - "$ref": "#/parameters/Rule_id"
+      tags:
+        - Rule
+    put:
+      summary: Replaces a Rule document
+      responses:
+        '200':
+          description: Rule document replaced successfully
+      parameters:
+        - "$ref": "#/parameters/Rule_id"
+        - in: body
+          name: Rule
+          required: true
+          schema:
+            "$ref": "#/definitions/Rule"
+        - in: header
+          name: If-Match
+          description: Current value of the _etag field
+          required: true
+          type: string
+      tags:
+        - Rule
+  "/alert_stream":
+    get:
+      description: Event Source SSE stream, to be notified of new alerts.
+      responses:
+        '000':
+          description: No response, as it is an SSE Stream Event.
+definitions:
+  Alert:
+    type: object
+    properties:
+      id:
+        type: integer
+      title:
+        maxLength: 256
+        type: string
+      description:
+        maxLength: 256
+        type: string
+      recurrence:
+        default: 1
+        type: integer
+      resolved_at:
+        type: string
+        format: date-time
+      assigned_to:
+        maxLength: 64
+        type: string
+      updated_by:
+        maxLength: 64
+        type: string
+      resolved_by:
+        maxLength: 64
+        type: string
+      related_item_id:
+        maxLength: 32
+        type: string
+      related_item_type:
+        maxLength: 32
+        type: string
+      address:
+        maxLength: 256
+        type: string
+      the_geom:
+        type: object
+      meta_type:
+        maxLength: 32
+        type: string
+      type:
+        maxLength: 256
+        type: string
+      sub_type:
+        maxLength: 32
+        type: string
+      absolute_value:
+        type: number
+        format: float
+      absolute_difference:
+        type: number
+        format: float
+      score_value:
+        type: number
+        format: float
+      severity:
+        type: integer
+      status:
+        default: 0
+        type: integer
+      operative_status:
+        default: 0
+        type: integer
+      created_at:
+        readOnly: true
+        type: string
+      updated_at:
+        readOnly: true
+        type: string
+  Rule:
+    type: object
+    properties:
+      id:
+        maxLength: 64
+        type: string
+      name:
+        maxLength: 64
+        type: string
+      measure_name:
+        maxLength: 64
+        type: string
+      measure_unit:
+        maxLength: 64
+        type: string
+      reference_type:
+        maxLength: 64
+        type: string
+      reference_start:
+        type: number
+        format: float
+      reference_end:
+        type: number
+        format: float
+      algorithm:
+        maxLength: 64
+        type: string
+      algorithm_description:
+        maxLength: 265
+        type: string
+      algorithm_comment:
+        maxLength: 256
+        type: string
+      algorithm_owner:
+        maxLength: 256
+        type: string
+      based_on_rule:
+        maxLength: 64
+        type: string
+      time_window_duration_s:
+        type: number
+        format: float
+      created_at:
+        readOnly: true
+        type: string
+    required:
+      - id
+parameters:
+  Alert_id:
+    in: path
+    name: alertId
+    required: true
+    description: ''
+    type: integer
+  Rule_id:
+    in: path
+    name: ruleId
+    required: true
+    description: ''
+    type: string
+tags:
+  - name: Alert
+  - name: Rule

@@ -1,0 +1,13 @@
+{
+  "name": "Building inclination DS",
+  "description": "Data simulation using SensorThings for PWS",
+  "unitOfMeasurement": {
+    "name": "Degrees",
+    "symbol": "º",
+    "definition": "https://en.wikipedia.org/wiki/Degree_(angle)"
+  },
+  "observationType": "http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_Measurement",
+  "Thing": {"iot.id": 1},
+  "ObservedProperty": {"iot.id": 1},
+  "Sensor": {"iot.id": 1}
+}

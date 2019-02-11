@@ -1,0 +1,5 @@
+{
+  "name": "Tilt",
+  "definition": "http://www.qudt.org/qudt/owl/1.0.0/quantity/Instances.html#Angle",
+  "description": "The angle"
+}

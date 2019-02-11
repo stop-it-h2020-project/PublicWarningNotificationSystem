@@ -1,0 +1,11 @@
+log:
+    level: <%= ENV['CONNECTOR_LOG_LEVEL'] %>
+
+sensorthings:
+    url: <%= ENV['FROST_SERVER'] %>
+    port: <%= ENV['FROST_PORT'] %>
+    query_sleep: <%= ENV['FROST_SLEEP'] %>
+
+simulator:
+    mu: <%= ENV['MU'] %>
+    sigma: <%= ENV['SIGMA'] %>

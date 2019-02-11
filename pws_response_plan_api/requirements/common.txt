@@ -1,0 +1,8 @@
+flask==1.0.2
+flask_restful==0.3.6
+flask-sqlalchemy==2.3.2
+psycopg2==2.7.5
+git+https://bitbucket.org/worldsensing_traffic/configmanager.git@1.2.1
+git+https://bitbucket.org/worldsensing_traffic/configurelogging.git@1.0.0
+git+https://bitbucket.org/worldsensing_traffic/postgresclient.git@1.1.0
+git+https://bitbucket.org/worldsensing_traffic/pws_common.git@0.2.0

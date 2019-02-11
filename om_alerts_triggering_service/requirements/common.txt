@@ -1,0 +1,5 @@
+requests==2.20.0
+git+https://bitbucket.org/worldsensing_traffic/configmanager.git@1.2.1
+git+https://bitbucket.org/worldsensing_traffic/configurelogging.git@1.0.0
+git+https://bitbucket.org/worldsensing_traffic/pikathrift.git@0.1.4
+git+https://bitbucket.org/worldsensing_traffic/postgresclient.git@1.0.0

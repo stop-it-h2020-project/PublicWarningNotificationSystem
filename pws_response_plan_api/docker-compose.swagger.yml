@@ -1,0 +1,27 @@
+version: "3"
+services:
+  mbpostgres:
+    image: worldsensing/mbpostgres:1.2.2
+    volumes:
+      - /var/opt/mb_swagger/pg_data:/var/lib/postgresql/data/pgdata # Postgres data directory
+    environment:
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    ports:
+      - "5432:5432"
+    restart: always
+    networks:
+      - swaggerapi
+
+  swagger:
+    image: worldsensing/swagger:1.0.0
+    volumes:
+      - ./swagger.edited.yaml:/app/swagger.yaml
+    env_file:
+      - ENV/swagger.env
+    ports:
+      - "8082:80"
+    networks:
+      - swaggerapi
+
+networks:
+  swaggerapi:

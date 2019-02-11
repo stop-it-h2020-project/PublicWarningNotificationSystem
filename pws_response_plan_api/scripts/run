@@ -1,0 +1,4 @@
+#!/bin/sh
+export PYTHONPATH=/opt/pws_api_response_plan/source/
+
+python ./main.py

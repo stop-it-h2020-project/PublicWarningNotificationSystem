@@ -1,0 +1,16 @@
+logger:
+  level: <%= ENV['LOG_LEVEL'] %>
+  stdout: true
+  to_file: false
+
+database:
+  database: test_<%= ENV['DB_NAME'] %>
+  host: <%= ENV['DB_HOST'] %>
+  port: <%= ENV['DB_PORT'] %>
+  user: <%= ENV['DB_USER'] %>
+  password: <%= ENV['DB_PASS'] %>
+
+redis:
+  url: <%= ENV['REDIS_URL'] %>
+
+flask_debug_mode: <%= ENV['API_DEBUG_MODE'] %>

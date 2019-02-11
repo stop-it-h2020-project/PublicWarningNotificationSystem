@@ -1,0 +1,7 @@
+--process-dependency-links
+python-dateutil==2.7.3
+jinja2==2.10
+git+https://bitbucket.org/worldsensing_traffic/mbconnector_lib.git@0.1.5
+git+https://bitbucket.org/worldsensing_traffic/configurelogging.git@1.0.0
+git+https://bitbucket.org/worldsensing_traffic/configmanager.git@1.2.1
+

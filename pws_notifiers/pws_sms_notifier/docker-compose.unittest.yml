@@ -1,0 +1,17 @@
+version: '3'
+networks:
+  unittests:
+
+services:
+  pws_sms_notifier:
+    image: worldsensing/pws_sms_notifier:1.0.0
+    env_file: tests/test.env
+    restart: always
+    networks:
+      - unittests
+
+  mbrabbitmq:
+    image: rabbitmq:3.7.3-management
+    restart: always
+    networks:
+      - unittests

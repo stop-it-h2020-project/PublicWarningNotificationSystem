@@ -1,0 +1,3 @@
+#!/bin/sh
+PYTHON_PATH=./oms_alerts_processor_service/
+cd $PROJECT_ROOT && python main.py

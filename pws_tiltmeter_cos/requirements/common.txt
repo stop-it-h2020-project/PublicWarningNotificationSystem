@@ -1,0 +1,8 @@
+--process-dependency-links
+flask==1.0.2
+cerberus==1.2.0
+pytz==2018.9
+git+https://bitbucket.org/worldsensing_traffic/mbconnector_lib.git@0.1.4
+git+https://bitbucket.org/worldsensing_traffic/configurelogging.git@1.0.0
+git+https://bitbucket.org/worldsensing_traffic/configmanager.git@1.2.1
+git+https://bitbucket.org/worldsensing_traffic/pws_common.git@0.2.3

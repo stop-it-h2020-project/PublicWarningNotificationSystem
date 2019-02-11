@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+
+cd $PROJECT_DIR
+python -m pytest -c pytest.ini

@@ -1,0 +1,34 @@
+version: '3'
+
+services:
+    mbpostgres:
+      image: worldsensing/mbpostgres:1.2.2
+      volumes:
+        - /var/opt/mb_unittests/pg_data:/var/lib/postgresql/data/pgdata
+      environment:
+        - PGDATA=/var/lib/postgresql/data/pgdata
+      restart: unless-stopped
+
+    mbinfluxdb:
+      image: influxdb:1.6.0
+      volumes:
+        - /var/opt/mb/influxdb:/var/lib/influxdb
+
+    chronograf:
+      image: chronograf:1.6.2
+      restart: always
+
+    mbcustomobjects_service:
+      image: worldsensing/mb_custom_object_service:2.0.0
+      links:
+          - mbpostgres
+      volumes:
+          - /var/log/mb/datafeeds/:/var/log/mbdatafeed/
+      env_file:
+          - customobject.env
+      restart: always
+
+    mbrabbitmq:
+      image: rabbitmq:3
+      restart: always
+

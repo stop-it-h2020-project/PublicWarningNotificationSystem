@@ -1,0 +1,99 @@
+version: '3'
+volumes:
+  ? mbwebapp
+  ? mbadmin
+  filebeat:
+  esdata:
+    driver: local
+  postgis_volume:
+  inv_grafanadata:
+networks:
+  private:
+    driver: bridge
+  pub_http:
+    driver: bridge
+  pub_amqp:
+    driver: bridge
+  pub_dw:
+    driver: bridge
+  pub_rpc:
+    driver: bridge
+  stack:
+    driver: bridge
+
+services:
+
+  # PWS
+  pws_api_response_plan:
+    image: worldsensing/pws_api_response_plan:1.1.1
+    env_file: ENV/pws_api_response_plan.env
+    restart: unless-stopped
+    networks:
+      - private
+
+  pws_email_notifier:
+    image: worldsensing/pws_email_notifier:1.0.1
+    env_file: ENV/pws_email_notifier.env
+    depends_on:
+      - mbrabbitmq
+    restart: unless-stopped
+    networks:
+      - private
+
+  pws_sms_notifier:
+    image: worldsensing/pws_sms_notifier:1.0.1
+    env_file: ENV/pws_sms_notifier.env
+    depends_on:
+      - mbrabbitmq
+    restart: unless-stopped
+    networks:
+      - private
+
+  pws_http_notifier:
+    image: worldsensing/pws_http_notifier:1.0.2-RC1
+    env_file: ENV/pws_http_notifier.env
+    depends_on:
+      - mbrabbitmq
+    restart: unless-stopped
+    networks:
+      - private
+
+  mbbusiness_rule_engine_service:
+    image: worldsensing/mb_business_rules_engine:1.0.3
+    env_file: ENV/pws_br.env
+    depends_on:
+      - mbrabbitmq
+      - mbinfluxdb
+    restart: always
+    networks:
+      - private
+
+  mbalerts_triggering_service:
+    image: worldsensing/oms_alerts_processor_service:1.0.2-pws
+    env_file: ENV/service_alerts_triggering.env
+    depends_on:
+      - mbrabbitmq
+      - pws_alerts_api
+    restart: always
+    networks:
+      - private
+
+  pws_alerts_api:
+    image: worldsensing/pws_alerts_management_service:1.0.4-RC1
+    ports:
+      - '5000:5000'
+    env_file: ENV/service_alerts_api.env
+    depends_on:
+      - mbpostgres
+    restart: unless-stopped
+    networks:
+      - private
+
+  pws_external_alerts_management_service:
+    image: worldsensing/pws_external_alerts_management_service:1.0.4
+    ports:
+      - '5001:5001'
+    restart: unless-stopped
+    networks:
+      - private
+

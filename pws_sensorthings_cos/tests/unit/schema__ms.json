@@ -1,0 +1,17 @@
+{
+    "type": "object",
+    "properties": {
+        "sensorthing_id": {
+            "$ref": "#/external_id"
+        },
+        "value_0": {
+            "$ref": "#/timeseries"
+        },
+        "value_1": {
+            "$ref": "#/timeseries"
+        },
+        "date": {
+            "$ref": "#/date"
+        }
+    }
+}

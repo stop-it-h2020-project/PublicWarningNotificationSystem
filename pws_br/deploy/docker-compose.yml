@@ -1,0 +1,12 @@
+version: '3'
+networks:
+    private:
+        external: true
+    pub_amqp:
+        external: true
+
+services:
+    om_business_rule_engine_service:
+      image: worldsensing/mb_business_rules_engine:{{ version_worldsensing_om_business_rule_engine_service|default('{{version_worldsensing_om_business_rule_engine_service}}') }}
+      env_file: {{ env_dir|default('{{env_dir}}') }}/om_business_rule_engine_service.env
+      restart: always

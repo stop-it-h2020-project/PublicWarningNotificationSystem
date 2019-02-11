@@ -1,0 +1,5 @@
+pika==0.12.0
+twilio==6.4.2
+git+https://bitbucket.org/worldsensing_traffic/configurelogging.git@1.0.0
+git+https://bitbucket.org/worldsensing_traffic/configmanager.git@1.2.1
+git+https://bitbucket.org/worldsensing_traffic/pikathrift.git@0.1.4

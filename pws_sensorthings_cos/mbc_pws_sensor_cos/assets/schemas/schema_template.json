@@ -1,0 +1,14 @@
+{
+    "type": "object",
+    "properties": {
+        "sensorthing_id": {
+            "$ref": "#/external_id"
+        },{% for item in timeseries %}
+        "{{ item }}": {
+            "$ref": "#/timeseries"
+        },
+        {% endfor %}"date": {
+            "$ref": "#/date"
+        }
+    }
+}

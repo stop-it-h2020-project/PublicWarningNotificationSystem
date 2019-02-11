@@ -1,0 +1,22 @@
+logger:
+  level: <%= ENV['LOG_LEVEL'] %>
+  stdout: true
+  to_file: false
+
+alerts_inserter:
+  api_host: <%= ENV['API_HOST'] %>
+
+alerts_enricher:
+  host: <%= ENV['DB_HOST'] %>
+  port: <%= ENV['DB_PORT'] %>
+  user: <%= ENV['DB_USER'] %>
+  password:
+  database: <%= ENV['DB_NAME'] %>
+  cos_host: <%= ENV['COS_HOST'] %>
+
+alerts_processor:
+  amqp_url: <%= ENV['RABBIT_HOST'] %>
+  exchange: <%= ENV['RABBIT_EXCHANGE'] %>
+  exchange_type: <%= ENV['RABBIT_EXCHANGE_TYPE'] %>
+  queue: <%= ENV['RABBIT_QUEUE'] %>
+  routing_key: <%= ENV['RABBIT_ROUTING_KEY'] %>

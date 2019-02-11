@@ -1,0 +1,19 @@
+
+logger:
+  level: <%= ENV['API_LOG_LEVEL'] %>
+  stdout: true
+  to_file: false
+
+rabbit:
+  amqp_url: <%= ENV['RABBIT_HOST'] %>
+  exchange: pws_notifications
+  exchange_type: topic
+  queue: pws.notifications.email
+  routing_key: pws.notifications.*
+
+smtp:
+  url: <%= ENV['CON_CONNECTOR_MAIL_SMTP_URL'] %>
+  port: <%= ENV['CON_CONNECTOR_MAIL_SMTP_PORT'] %>
+  user: <%= ENV['CON_CONNECTOR_MAIL_USER'] %>
+  password: <%= ENV['CON_CONNECTOR_MAIL_PASS'] %>
+  sender: <%= ENV['CON_CONNECTOR_MAIL_SENDER'] %>

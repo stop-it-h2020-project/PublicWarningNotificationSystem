@@ -1,0 +1,100 @@
+version: '3'
+
+services:
+  mbcustomobjects_service_rest:
+    command: rest
+    image: worldsensing/mb_custom_object_service:2.0.0
+    depends_on:
+      - mbcustomobjects_service_core
+    env_file: customization/ENV/mbcustomobjects_service.env
+    ports:
+      - "5000:5000"
+    networks:
+      - private
+
+  mbcustomobjects_service_core:
+    command: core
+    image: worldsensing/mb_custom_object_service:1.6.1
+    depends_on:
+      - mbpostgres
+      - mbinfluxdb
+      - mbrabbitmq
+    env_file: customization/ENV/mbcustomobjects_service.env
+    restart: always
+    networks:
+      - private
+
+  pws_cos_api:
+    image: worldsensing/pws_cos_api:1.0.0-RC2
+    ports:
+      - '5002:5000'
+    env_file: customization/ENV/pws_cos_api.env
+    depends_on:
+      - mbcustomobjects_service_rest
+    restart: unless-stopped
+    networks:
+      - private
+
+  mbpostgres:
+    image: worldsensing/mbpostgres:1.2.2
+    volumes:
+      - /var/opt/pws/pg_data:/var/lib/postgresql/data/pgdata
+    environment:
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    networks:
+      - private
+
+  mbinfluxdb:
+    image: influxdb:1.6.2
+    volumes:
+      - /var/opt/mb/influxdb:/var/lib/influxdb
+    networks:
+      - private
+
+  mbrabbitmq:
+    image: rabbitmq:3.7.8-management
+    restart: unless-stopped
+    networks:
+      - private
+
+  chronograf:
+    image: chronograf:1.6.2
+    ports:
+      - "8888:8888"
+    restart: always
+
+  frost:
+    image: fraunhoferiosb/frost-server:1.8
+    environment:
+      - serviceRootUrl=http://web:8080/FROST-Server   # TODO: Rename here web to frost when also done in the connector main
+      - http_cors_enable=true
+      - http_cors_allowed.origins=*
+      - persistence_db_driver=org.postgresql.Driver
+      - persistence_db_url=jdbc:postgresql://database:5432/sensorthings
+      - persistence_db_username=sensorthings
+      - persistence_db_password=
+      - persistence_autoUpdateDatabase=true
+    ports:
+      - 8080:8080
+      - 1883:1883
+    depends_on:
+      - database
+
+  database:
+    image: mdillon/postgis:10
+    environment:
+      - POSTGRES_DB=sensorthings
+      - POSTGRES_USER=sensorthings
+      - POSTGRES_PASSWORD=
+    volumes:
+      - postgis_volume:/var/lib/postgresql/data
+
+volumes:
+    postgis_volume:
+
+networks:
+  private:
+    driver: bridge

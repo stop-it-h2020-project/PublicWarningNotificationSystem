@@ -1,0 +1,33 @@
+dbrp "mb_pws_db"."autogen"
+
+// axis_threshold
+var option_threshold = 1.0
+var option_item_type = 'tiltmeter'
+var option_measure_name = 'tilt'
+var option_measure_unit = 'degrees'
+var option_severity = 1
+var option_rule_id = 'RULE#TILTMETER#1'
+var option_rule_name = 'tiltmeter rule'
+
+var rule = lambda: abs(float("axis_one")) > option_threshold OR abs(float("axis_two")) > option_threshold
+
+var tiltmeter_alert = batch
+|query('''SELECT object_type, axis_one, axis_two, loadsensing_tiltmeter_id as item_id
+          FROM "mb_pws_db"."autogen"."measurements"''')
+    .period(10s)
+    .every(2s)
+    .align()
+    .groupBy('item_id')
+|where(lambda: "object_type" == 'loadsensing_tiltmeter')  // COS
+|where(rule)
+|httpOut('alert')
+
+tiltmeter_alert
+@QueueSender()
+    .item_type(option_item_type)
+    .measure_name(option_measure_name)
+    .measure_unit(option_measure_unit)
+    .rule_id(option_rule_id)
+    .rule_name(option_rule_name)
+    .threshold(option_threshold)
+    .severity(option_severity)

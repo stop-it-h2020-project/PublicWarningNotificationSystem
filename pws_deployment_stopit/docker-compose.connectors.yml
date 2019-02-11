@@ -1,0 +1,53 @@
+version: '3'
+networks:
+  mb_pub_http:
+    external: true
+  mb_pub_amqp:
+    external: true
+  mb_private:
+    external: true
+
+services:
+  # Connectors
+  pws_tiltmeter_cos:
+    image: worldsensing/mbc_pws_sensor_cos:1.0.3-RC1
+    env_file: ENV/pws_tiltmeter_cos.env
+    depends_on:
+      - mbcustomobjects_service_rest
+    restart: unless-stopped
+    networks:
+      - private
+
+  pws_twitter_cos:
+    image: worldsensing/mbc_pws_twitter_cos:1.0.1
+    env_file: ENV/pws_twitter_cos.env
+    depends_on:
+      - mbcustomobjects_service_rest
+    restart: unless-stopped
+    networks:
+      - private
+    stdin_open: true
+    tty: true
+
+  pws_sensorthings_cos:
+    image: worldsensing/mbc_pws_sensorthings_cos:1.0.1
+    env_file: ENV/pws_sensorthings_cos.env
+    depends_on:
+      - mbcustomobjects_service_rest
+      - frost
+    restart: unless-stopped
+    networks:
+      - private
+
+  # Simulators
+  pws_sensorthings_simulator:
+    image: worldsensing/sensorthings_simulator:1.0.1
+    env_file: ENV/sensorthings_simulator.env
+    depends_on:
+      - pws_sensorthings_cos
+    restart: unless-stopped
+    networks:
+      - private
+
+
+

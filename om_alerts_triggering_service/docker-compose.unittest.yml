@@ -1,0 +1,15 @@
+version: "3"
+services:
+  mbpostgres:
+    image: worldsensing/mbpostgres:1.2.2
+    volumes:
+    - /var/opt/mb/pg_data:/var/lib/postgresql/data/pgdata
+    environment:
+    - PGDATA=/var/lib/postgresql/data/pgdata
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "2"
+    restart: always
+    ports:
+      - "5432:5432"

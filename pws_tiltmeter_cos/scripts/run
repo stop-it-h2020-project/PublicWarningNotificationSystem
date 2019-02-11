@@ -1,0 +1,4 @@
+#!/bin/sh
+export PYTHONPATH=/opt/mb/mbc_pws_sensor_cos
+
+python ./connector_main.py

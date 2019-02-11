@@ -1,0 +1,2 @@
+#!/bin/sh
+cd /opt/pws_email_notifier/ && PYTHONPATH=./ pytest -c tests/pytest.ini

@@ -1,0 +1,8 @@
+- packageId: mbc_pws_sensor_cos
+    packageType: COSPackage
+    packageManifestParams:
+      objectType: sensorthings
+      title: mbc_pws_sensor_cos
+      position: left
+      popupWidth: 440
+      popupHeight: 335

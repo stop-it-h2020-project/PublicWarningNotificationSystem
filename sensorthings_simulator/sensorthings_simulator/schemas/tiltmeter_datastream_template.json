@@ -1,0 +1,13 @@
+{
+    "name": "Inclination angle of the building",
+    "description": "Inclination angle of the building",
+    "observationType": "http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_Measurement",
+    "unitOfMeasurement": {
+        "name": "Degrees",
+        "symbol": "º",
+        "definition": "https://en.wikipedia.org/wiki/Degree_(angle)"
+    },
+    "Thing": {"@iot.id": {thing_id}},
+    "ObservedProperty": {"@iot.id": {observedproperty_id}},
+    "Sensor": {"@iot.id": {sensor_id}}
+}

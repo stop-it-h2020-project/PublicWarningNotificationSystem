@@ -1,0 +1,3 @@
+#!/bin/sh
+PYTHON_PATH=./oms_alerts_processor_service/
+cd /opt/oms_alerts_processor_service && pytest -c pytest.ini -s -vv

@@ -1,0 +1,35 @@
+version: "3"
+services:
+  pws_alerts_management_service:
+    image: worldsensing/pws_alerts_management_service:1.0.0-RC1
+    ports:
+      - "5000:5000"
+    env_file:
+      - ENV/deploy.env
+
+  mbpostgres:
+    image: worldsensing/mbpostgres:1.2.2
+    volumes:
+      - /var/opt/mb/pg_data:/var/lib/postgresql/data/pgdata
+    environment:
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "2"
+    restart: always
+    ports:
+      - "5432:5432"
+
+  mbredis:
+    image: worldsensing/mbredis:1.0.0
+    volumes:
+      - /var/opt/mb/redis_data:/data
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "2"
+    restart: always
+    command: redis-server --appendonly yes
+    ports:
+      - "6379:6379"

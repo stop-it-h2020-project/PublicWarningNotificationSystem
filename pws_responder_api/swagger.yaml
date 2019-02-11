@@ -1,0 +1,49 @@
+openapi: 3.0.0
+info:
+  description:
+    This is the API documentation for PWS Responder in the Public Warning System project. It wraps acts as an intermediate layer between the alerts/response plans and their execution.
+  version: 1.0.0
+  title: PWS Responder
+  contact:
+    email: thisisnotavalidemail@worldsensing.com
+tags:
+- name: instances-management
+  description: .
+- name: responder-management
+  description: .
+externalDocs:
+  description: Source code (Bitbucket)
+  url: 'https://bitbucket.org/worldsensing_traffic/pws_responder_api/'
+paths:
+  '/responder/':
+    post:
+      tags:
+      - responder-management
+      summary: Execute a response
+      description: ''
+      operationId: addInstance
+      parameters:
+      - alert: the source of the alert
+        response_plan: the response to apply to it
+      requestBody:
+        $ref: '#/components/requestBodies/Generic'
+      responses:
+        '200':
+          description: successful operation
+        '500':
+          description: couldn't execute the response
+servers:
+- url: 'ENV_BACKEND_SWAGGER'
+- url: 'http://127.0.0.1:5001'
+components:
+  requestBodies:
+    Generic:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Generic'
+      description: generic object
+      required: true
+  schemas:
+    Generic:
+      type: object

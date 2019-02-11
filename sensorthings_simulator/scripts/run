@@ -1,0 +1,4 @@
+#!/bin/sh
+export PYTHONPATH=/opt/mb/sensorthings_simulator
+
+python ./simulator.py

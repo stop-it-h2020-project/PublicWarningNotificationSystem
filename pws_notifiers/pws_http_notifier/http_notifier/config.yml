@@ -1,0 +1,11 @@
+logger:
+  level: <%= ENV['API_LOG_LEVEL'] %>
+  stdout: true
+  to_file: false
+
+rabbit:
+  amqp_url: <%= ENV['RABBIT_HOST'] %>
+  exchange: pws_notifications
+  exchange_type: topic
+  queue: pws.notifications.http
+  routing_key: pws.notifications.*

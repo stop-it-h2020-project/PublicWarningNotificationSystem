@@ -1,0 +1,49 @@
+version: '3'
+
+networks:
+  private:
+    driver: bridge
+
+services:
+
+  mbinfluxdb:
+    image: influxdb:1.6.2
+    volumes:
+      - ~/test/data/influxdb:/var/lib/influxdb
+    ports:
+      - "8086:8086"
+    networks:
+      - private
+
+  mbchronograf:
+    image: chronograf:1.6.2
+    environment:
+      INFLUXDB_URL: http://influxdb:8086
+      KAPACITOR_URL: http://mbbusiness_rules_engine:9092
+    ports:
+      - "8888:8888"
+    links:
+      - mbinfluxdb
+    networks:
+      - private
+
+  mbrabbitmq:
+    image: rabbitmq:3.7.8-management
+    ports:
+      - "8081:15672"
+      - "5672:5672"
+    restart: unless-stopped
+    networks:
+      - private
+
+  mbbusiness_rules_engine:
+    image: worldsensing/mb_business_rules_engine:1.0.0-RC1
+    environment:
+      KAPACITOR_HOSTNAME: mbbusiness_rules_engine
+      KAPACITOR_INFLUXDB_0_URLS_0: http://mbinfluxdb:8086
+    links:
+      - mbinfluxdb
+    ports:
+      - "9092:9092"
+    networks:
+      - private

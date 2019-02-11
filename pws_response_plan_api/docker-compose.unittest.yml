@@ -1,0 +1,16 @@
+version: "3"
+services:
+  mbpostgres:
+    image: worldsensing/mbpostgres:1.2.2
+    volumes:
+      - /var/opt/mb_unittests/pg_data:/var/lib/postgresql/data/pgdata # Postgres data directory
+    environment:
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    ports:
+      - "5432:5432"
+    restart: always
+    networks:
+      - unittests
+
+networks:
+  unittests:

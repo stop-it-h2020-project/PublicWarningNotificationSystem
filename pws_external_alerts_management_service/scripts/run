@@ -1,0 +1,4 @@
+#!/bin/sh
+PYTHON_PATH=./pws_external_alerts_management_service/
+cd $PROJECT_ROOT && python main.py
+

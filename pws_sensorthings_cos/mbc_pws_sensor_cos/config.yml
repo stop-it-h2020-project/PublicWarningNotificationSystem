@@ -1,0 +1,30 @@
+mobility:
+  url: <%= ENV['MOBILITY_API_URL'] %>
+  password: <%= ENV['MOBILITY_API_PASS'] %>
+  username: <%= ENV['MOBILITY_API_USER'] %>
+  client_id: <%= ENV['MOBILITY_API_CLIENT_ID'] %>
+  client_secret: <%= ENV['MOBILITY_API_CLIENT_SECRETS'] %>
+  development: <%= ENV['MOBILITY_API_DEV'] %>
+
+internal_api:
+  port: <%= ENV['INTERNAL_API_PORT'] %>
+
+cos:
+  object_type: <%= ENV['OBJECT_TYPE'] %>
+  schema_dir: <%= ENV['SCHEMA_DIR'] %>
+
+pws_cos_api: <%= ENV['PWS_COS_API'] %>
+
+interval: <%= ENV['CONNECTOR_INTERVAL'] %>
+
+log:
+  level: <%= ENV['CONNECTOR_LOG_LEVEL'] %>
+
+source:
+   path: ../datafiles/metadata.csv
+
+sensorthings:
+   url: <%= ENV['FROST_SERVER'] %>
+   port: <%= ENV['FROST_PORT'] %>
+   schema_dir: <%= ENV['SCHEMA_DIR'] %>
+   query_sleep: <%= ENV['FROST_SLEEP'] %>

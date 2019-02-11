@@ -1,0 +1,2 @@
+KAPACITOR_HOSTNAME=om-business-rule-engine-service.om.svc.cluster.local
+KAPACITOR_INFLUXDB_0_URLS_0=http://mbinfluxdb.om.svc.cluster.local:8086

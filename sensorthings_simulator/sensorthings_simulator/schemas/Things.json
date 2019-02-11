@@ -1,0 +1,15 @@
+{
+  "name": "Tilt Monitoring System",
+  "description": "Sensor system monitoring buildings inclination",
+  "Locations": [
+        {
+            "name": "Virtual location",
+            "description": "Virtual location",
+            "encodingType": "application/vnd.geo+json",
+            "location": {
+                "type": "Point",
+                "coordinates": [8.4259727, 49.015308]
+            }
+        }
+    ]
+}

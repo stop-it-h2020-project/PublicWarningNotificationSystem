@@ -1,0 +1,252 @@
+openapi: 3.0.0
+info:
+  description:
+    This is the API documentation for the ResponsePlan in the Public Warning System project.
+  version: 1.0.0
+  title: PWS Response Plan API
+tags:
+  - name: response-plans
+    description: .
+externalDocs:
+  description: Source code (Bitbucket)
+  url: 'https://bitbucket.org/worldsensing_traffic/pws_api'
+paths:
+  '/response-plans':
+    get:
+      tags:
+        - response-plans
+      summary: Get all response-plans
+      description: ''
+      operationId: getAllResponsePlans
+      responses:
+        '200':
+          description: 'Array containing response-plan objects'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ResponsePlan'
+    post:
+      tags:
+        - response-plans
+      summary: Create a new response-plan
+      description: ''
+      operationId: addResponsePlan
+      responses:
+        '200':
+          description: successful operation with the ID {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/idOfResponsePlan'
+        '400':
+          description: response-plan id exist
+        '500':
+          description: invalid response-plan
+      requestBody:
+        $ref: '#/components/requestBodies/ResponsePlan'
+  '/response-plans/{response-plan-id}/':
+    get:
+      tags:
+        - response-plans
+      summary: Get a response-plan
+      description: ''
+      operationId: getResponsePlan
+      parameters:
+        - in: path
+          name: response-plan-id
+          description: response-plan object queried.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Succesful operation - Returning response-plan object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponsePlan'
+        '404':
+          description: response-plan id does not exists
+    put:
+      tags:
+        - response-plans
+      summary: Update a response-plan
+      description: ''
+      operationId: putResponsePlan
+      parameters:
+        - in: path
+          name: response-plan-id
+          description: response-plan object that needs to be modified.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+        '404':
+          description: response-plan id does not exist
+        '500':
+          description: invalid response-plan
+      requestBody:
+        $ref: '#/components/requestBodies/ResponsePlan'
+    delete:
+      tags:
+        - response-plans
+      summary: Delete a response-plan
+      description: ''
+      operationId: deleteResponsePlan
+      parameters:
+        - in: path
+          name: response-plan-id
+          description: response-plan object that needs to be deleted.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+        '404':
+          description: response-plan id does not exist
+servers:
+  - url: 'ENV_BACKEND_SWAGGER'
+  - url: 'http://127.0.0.1:5000'
+components:
+  requestBodies:
+    ResponsePlan:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ResponsePlan'
+      description: response-plan object
+      required: true
+  schemas:
+    ResponsePlan:
+      type: object
+      properties:
+        response_plan_id:
+          type: string
+        message_status:
+          type: integer
+          enum:
+            - 10
+            - 20
+          x-enum-varnames:
+            - Real
+            - Test
+        alert_category:
+          type: integer
+          enum:
+            - 10
+            - 20
+            - 30
+            - 40
+            - 50
+            - 60
+            - 70
+            - 80
+            - 90
+            - 100
+            - 110
+            - 200
+            - 300
+          x-enum-varnames:
+            - Geo
+            - Met
+            - Safety
+            - Security
+            - Rescue
+            - Fire
+            - Health
+            - Env
+            - Transport
+            - Infra
+            - Social Media
+            - CBRNE
+            - Other
+        alert_severity:
+          type: integer
+          enum:
+            - 10
+            - 20
+            - 30
+            - 40
+            - 50
+            - 100
+          x-enum-varnames:
+            - Extreme
+            - Severe
+            - Moderate
+            - Normal
+            - Minor
+            - Unknown
+        actions:
+          type: array
+          items:
+            type: integer
+            enum:
+              - 10
+              - 20
+              - 30
+            x-enum-varnames:
+              - Email
+              - SMS
+              - HTTP_POST
+        action_parameters:
+          type: array
+          items:
+            type: string
+        action_format:
+          type: array
+          items:
+            type: integer
+            enum:
+              - 10
+              - 20
+              - 30
+            x-enum-varnames:
+              - Plain Text
+              - CAP
+              - Other
+        action_description:
+          type: array
+          items:
+            type: string
+        action_body:
+          type: array
+          items:
+            type: string
+        action_trigger:
+          type: array
+          items:
+            type: integer
+            enum:
+              - 10
+              - 20
+            x-enum-varnames:
+              - Automatic
+              - Manual
+        accessibility:
+          type: integer
+          enum:
+            - 10
+            - 20
+          x-enum-varnames:
+            - Operator
+            - Administrator
+        area:
+          type: string
+          example: "Catalonia area"
+        geolocation:
+          type: string
+          example: "000000000140000000000000004010000000000000"
+      xml:
+        name: ResponsePlan
+    idOfResponsePlan:
+      type: object
+      properties:
+        internal_id:
+          type: string
+      xml:
+        name: idOfResponsePlan

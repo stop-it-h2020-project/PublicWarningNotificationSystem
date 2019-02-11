@@ -1,0 +1,4 @@
+logger:
+  level: <%= ENV['API_LOG_LEVEL'] %>
+  stdout: true
+  to_file: false

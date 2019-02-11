@@ -1,0 +1,6 @@
+--process-dependency-links
+flask==1.0.2
+flask_restful==0.3.6
+pika==0.10.0
+git+https://bitbucket.org/worldsensing_traffic/configmanager.git@1.2.1
+git+https://bitbucket.org/worldsensing_traffic/configurelogging.git@1.0.0

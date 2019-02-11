@@ -1,0 +1,16 @@
+name: <%= ENV['API_NAME'] %>
+
+logger:
+  level: <%= ENV['API_LOG_LEVEL'] %>
+  stdout: true
+  to_file: false
+
+database:
+  database: <%= ENV['API_DATABASE'] %>
+  host: <%= ENV['API_DB_HOST'] %>
+  port: <%= ENV['API_DB_PORT'] %>
+  user: <%= ENV['API_DB_USER'] %>
+  password:
+
+frontend_cors:
+  urls: <%= ENV['FRONTEND_CORS'] %>

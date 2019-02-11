@@ -1,0 +1,3 @@
+#!/bin/sh
+
+kapacitord -config /etc/kapacitor/kapacitor.conf

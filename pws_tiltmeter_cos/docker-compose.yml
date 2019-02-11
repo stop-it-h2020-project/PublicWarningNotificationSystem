@@ -1,0 +1,61 @@
+version: '3'
+
+services:
+    mbpostgres:
+      image: worldsensing/mbpostgres:1.2.2
+      volumes:
+        - /var/opt/mb_unittests/pg_data:/var/lib/postgresql/data/pgdata
+      environment:
+        - PGDATA=/var/lib/postgresql/data/pgdata
+      ports:
+        - "5432:5432"
+      restart: unless-stopped
+
+    mbinfluxdb:
+      image: influxdb:1.6.0
+      volumes:
+        - /var/opt/mb/influxdb:/var/lib/influxdb
+      ports:
+        - "8086:8086"
+
+    chronograf:
+      image: chronograf:1.6.2
+      ports:
+          - "8888:8888"
+      restart: always
+
+    mbcustomobjects_service_rest:
+      command: rest
+      image: worldsensing/mb_custom_object_service:2.0.0
+      depends_on:
+        - mbcustomobjects_service_core
+      env_file: customization/ENV/mbcustomobjects_service.env
+      ports:
+        - "5000:5000"
+
+    mbcustomobjects_service_core:
+      command: core
+      image: worldsensing/mb_custom_object_service:1.6.1
+      depends_on:
+        - mbpostgres
+        - mbinfluxdb
+        - mbrabbitmq
+      env_file: customization/ENV/mbcustomobjects_service.env
+      restart: always
+
+    pws_cos_api:
+      image: worldsensing/pws_cos_api:1.0.1-RC1
+      ports:
+        - "5001:5000"
+      env_file:
+        - customization/ENV/pws_cos_api.env
+      depends_on:
+        - mbcustomobjects_service_rest
+      restart: always
+
+    mbrabbitmq:
+      image: rabbitmq:3
+      restart: always
+      ports:
+        - "5672:5672"
+

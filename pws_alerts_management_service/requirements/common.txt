@@ -1,0 +1,14 @@
+eve==0.7.10
+eve-sqlalchemy==0.7.0
+gunicorn==19.9.0
+gevent==1.3.7
+GeoAlchemy2==0.5.0
+Shapely==1.6.4.post2
+Flask-SSE==0.2.1
+Flask-Cors==3.0.6
+Flask-Script==2.0.6
+requests==2.20.0
+git+https://bitbucket.org/worldsensing_traffic/configmanager.git@1.2.1
+git+https://bitbucket.org/worldsensing_traffic/configurelogging.git@1.0.0
+git+https://bitbucket.org/worldsensing_traffic/postgresclient.git@1.0.0
+git+https://bitbucket.org/worldsensing_traffic/pws_common.git@0.2.1

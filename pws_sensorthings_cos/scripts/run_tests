@@ -1,0 +1,2 @@
+#!/bin/sh
+cd /opt/mb/ && PYTHONPATH=/opt/mb/mbc_pws_sensor_cos pytest -c pytest.ini

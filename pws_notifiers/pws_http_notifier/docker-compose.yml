@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  mbrabbitmq:
+    image: rabbitmq:3.7.8-management
+    restart: unless-stopped
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - private
+
+networks:
+  private:
+    driver: bridge

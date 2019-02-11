@@ -1,0 +1,4 @@
+--process-dependency-links
+git+https://bitbucket.org/worldsensing_traffic/configurelogging.git@1.0.0
+git+https://bitbucket.org/worldsensing_traffic/configmanager.git@1.2.1
+requests==2.20.0
